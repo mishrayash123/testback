@@ -4,6 +4,13 @@ import mongoose from 'mongoose';
 const UserSchema = new mongoose.Schema({
   email: { type: String, required: true },
   username: { type: String, required: true },
+  fname: { type: String, required: true },
+  lname: { type: String, required: true },
+  city: { type: String, required: true },
+  state: { type: String, required: true },
+  zip: { type: String, required: true },
+  address: { type: String, required: true },
+  phone: { type: String, required: true },
   authentication: {
     password: { type: String, required: true, select: false },
     salt: { type: String, select: false },
