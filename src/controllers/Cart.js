@@ -4,8 +4,7 @@ import { createCart ,getbyproductid,getcart,deleteCartById} from '../db/Cart.js'
 
 export const addtocart = async (req, res) => {
     try {
-      const { productid, userid } = req.body;
-  
+      const { productid, userid,image,title,price } = req.body;
       if (!productid || !userid) {
         return res.sendStatus(400);
       }
@@ -19,6 +18,9 @@ export const addtocart = async (req, res) => {
       const user  = await createCart({
         productid,
         userid,
+        image,
+        title,
+        price
       });
       return res.status(200).json(user).end();
     } catch (error) {

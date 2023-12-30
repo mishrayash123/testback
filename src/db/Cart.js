@@ -4,6 +4,9 @@ import mongoose from 'mongoose';
 const UserSchema = new mongoose.Schema({
   productid: { type: Number, required: true },
   userid: { type: String, required: true },
+  image: { type: String, required: true },
+  title: { type: String, required: true },
+  price: { type: Number, required: true },
 });
 
  export const UserModel = mongoose.model('Cart', UserSchema);
