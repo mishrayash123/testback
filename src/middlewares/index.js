@@ -10,7 +10,7 @@ export const isAuthenticated = async (req, res, next) => {
     if (!sessionToken) {
       return res.sendStatus(403);
     }
-
+    console.log(sessionToken)
     const existingUser = await getUserBySessionToken(sessionToken);
     if (!existingUser) {
       return res.sendStatus(403);
