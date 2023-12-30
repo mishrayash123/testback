@@ -11,24 +11,24 @@ export const login = async (req, res) => {
       return res.sendStatus(400);
     }
 
-    const user = await getUserByEmail(email).select('+authentication.salt +authentication.password');
+    const user = await getUserByEmail(email).select('+salt +password');
 
     if (!user) {
       return res.sendStatus(400);
     }
 
-    const expectedHash = authentication(user.authentication.salt, password);
+    const expectedHash = authentication(user.salt, password);
     
-    if (user.authentication.password != expectedHash) {
+    if (user.password != expectedHash) {
       return res.sendStatus(403);
     }
 
     const salt = random();
-    user.authentication.sessionToken = authentication(salt, user._id.toString());
+    user.sessionToken = authentication(salt, user._id.toString());
 
     await user.save();
 
-    res.cookie('YashKumarMishra-auth', user.authentication.sessionToken, {
+    res.cookie('YashKumarMishra-auth', user.sessionToken, {
       expires: new Date (Date.now() + 25892000000),
       httpOnly:true
       });
@@ -58,10 +58,8 @@ export const register = async (req, res) => {
     const user = await createUser({
       email,
       username,
-      authentication: {
         salt,
         password: authentication(salt, password),
-      },
     });
 
     return res.status(200).json(user).end();
