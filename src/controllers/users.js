@@ -16,8 +16,7 @@ export const getAllUsers = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
   try {
-    const { id } = req.params;
-
+    const { id } = (req.params);
     const deletedUser = await deleteUserById(id);
 
     return res.json(deletedUser);
@@ -31,7 +30,7 @@ export const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
     const  data  = req.body;
-    const updatedItem = await UserModel.findByIdAndUpdate(id, data, {
+    const updatedItem = await UserModel.findByIdAndUpdate(id.trim(), data, {
       new: true,
     });
 

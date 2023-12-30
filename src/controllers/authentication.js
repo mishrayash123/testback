@@ -28,10 +28,7 @@ export const login = async (req, res) => {
 
     await user.save();
 
-    res.cookie('YashKumarMishra-auth', user.sessionToken, {
-      expires: new Date (Date.now() + 25892000000),
-      httpOnly:true
-      });
+    res.cookie('YashKumarMishra-auth', user.sessionToken, );
 
     return res.status(200).json(user).end();
   } catch (error) {
