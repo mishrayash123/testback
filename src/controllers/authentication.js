@@ -30,7 +30,7 @@ export const login = async (req, res) => {
 
     res.cookie('YashKumarMishra-auth', user.sessionToken, {
       expires: new Date (Date.now() + 25892000000),
-      httpOnly:true
+      httpOnly: true, sameSite: 'None', secure: true,
       });
 
     return res.status(200).json(user).end();
