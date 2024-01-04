@@ -14,6 +14,6 @@ const UserSchema = new mongoose.Schema({
 // User Actions
  export const getproducts = () => UserModel.find();
  export const getproductsById = (id) => UserModel.findById(id);
- export const getproductsByuserid = (userid) => UserModel.findOne({ 'userid': userid });
+ export const getproductsByuserid = (title) => UserModel.findOne({ 'title': title});
  export const createproducts = (values) => new UserModel(values).save().then((user) => user.toObject());
  export const deleteproductsById = (id) => UserModel.findOneAndDelete({ _id: id });
