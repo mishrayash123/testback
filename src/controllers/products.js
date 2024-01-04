@@ -4,7 +4,7 @@ import {createproducts ,getproductsById,getproducts,deleteproductsById, getprodu
 
 export const addtoproducts = async (req, res) => {
     try {
-      const {title, userid,image,price,description } = req.body;
+      const {title, userid,image,price,description,category} = req.body;
       if (!title) {
         return res.sendStatus(400);
       }
@@ -20,7 +20,8 @@ export const addtoproducts = async (req, res) => {
         userid,
         price,
         image,
-        description
+        description,
+        category
       });
       return res.status(200).json(user).end();
     } catch (error) {

@@ -7,6 +7,7 @@ const UserSchema = new mongoose.Schema({
   image: { type: String, required: true },
   description: { type: String, required: true },
   userid: { type: String, required: true },
+  category: { type: String, required: true },
 });
 
  export const UserModel = mongoose.model('products', UserSchema);
