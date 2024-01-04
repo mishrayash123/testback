@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 // User Config
 const UserSchema = new mongoose.Schema({
-  productid: { type: Number, required: true },
+  productid: { type: String, required: true },
   userid: { type: String, required: true },
   orderid: { type: String, required: true },
   date: { type: String, required: true },
