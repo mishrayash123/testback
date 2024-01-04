@@ -5,6 +5,7 @@ import users from './users.js';
 import cart  from './cart.js';
 import orders from './orders.js'
 import sellers from './Seller.js'
+import products from './products.js';
 
 const router = express.Router();
 
@@ -14,5 +15,6 @@ export default () => {
   cart(router);
   sellers(router);
   orders(router);
+  products(router)
   return router;
 };
