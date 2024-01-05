@@ -4,12 +4,12 @@ import {createorders ,getproductById,getorders,deleteordersById} from '../db/ord
 
 export const addtoorders = async (req, res) => {
     try {
-      const { productid, userid,date,orderid,quantity } = req.body;
+      const { productid, userid,date,orderid,quantity,cod} = req.body;
       if (!productid || !userid) {
         return res.sendStatus(400);
       }
 
-      const existingcart = await getproductById(productid);
+      const existingcart = await getproductById(orderid);
   
     if (existingcart) {
       return res.sendStatus(400);
@@ -20,7 +20,8 @@ export const addtoorders = async (req, res) => {
         userid,
         date,
         orderid,
-        quantity
+        quantity,
+        cod
       });
       return res.status(200).json(user).end();
     } catch (error) {

@@ -9,12 +9,6 @@ export const addtocart = async (req, res) => {
         return res.sendStatus(400);
       }
 
-      const existingcart = await getbyproductid(productid);
-  
-    if (existingcart) {
-      return res.sendStatus(400);
-    }
-
       const user  = await createCart({
         productid,
         userid,
