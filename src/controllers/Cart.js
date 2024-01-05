@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { createCart ,getbyproductid,getcart,deleteCartById} from '../db/Cart.js';
+import { createCart ,getcart,deleteCartById} from '../db/Cart.js';
 
 export const addtocart = async (req, res) => {
     try {
