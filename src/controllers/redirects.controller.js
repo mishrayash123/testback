@@ -7,6 +7,7 @@ const redirect = async (req, res) => {
             urlCode: code
         });
         if (url) {
+            console.log(url.longUrl)
             return res.redirect(url.longUrl);
         } else {
             return res.status(404).json('No URL Found');
