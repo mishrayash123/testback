@@ -19,5 +19,3 @@ const UserSchema = new mongoose.Schema({
  export const createUser = (values) => new UserModel(values).save().then((user) => user.toObject());
  export const deleteUserById = (id) => UserModel.findOneAndDelete({ _id: id });
  export const updateUserById = (id, values) => UserModel.findByIdAndUpdate(id, values);
-
-
