@@ -25,5 +25,5 @@ const URLSchema = new mongoose.Schema({
 );
  
 const URLModel = mongoose.model('UrlAssignment', URLSchema);
-
+export const deleteurlById = (id) => URLModel.findOneAndDelete({ _id: id });
 export default URLModel;
