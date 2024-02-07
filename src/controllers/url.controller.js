@@ -22,7 +22,7 @@ const generateUniqueShortId = async () => {
 };
 
 export const url = async (req, res) => {
-    const { longUrl, urlCode } = req.body;
+    const { longUrl, urlCode,userid } = req.body;
 
     try {
 
@@ -57,6 +57,7 @@ export const url = async (req, res) => {
             urlCode: generatedCode,
             longUrl,
             shortUrl,
+            userid
         });
         await newURL.save();
         res.status(201).json({ urlCode: generatedCode });
