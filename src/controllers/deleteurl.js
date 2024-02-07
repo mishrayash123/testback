@@ -1,4 +1,3 @@
-import deleteurlById from '../db/url.model.js'
 import URLModel from "../db/url.model.js";
 
 export const deleteurl = async (req, res) => {
