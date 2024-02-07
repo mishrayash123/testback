@@ -60,7 +60,7 @@ export const url = async (req, res) => {
             userid
         });
         await newURL.save();
-        res.status(201).json({ urlCode: generatedCode });
+        res.status(201).json({newURL}).end();
     } catch (error) {
         console.error('Error shortening URL:', error);
         res.status(500).json({ error: 'Failed to shorten URL' });
