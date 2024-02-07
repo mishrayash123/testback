@@ -6,6 +6,6 @@ import getAllUrls from '../controllers/getallurls.js'
 export default (router) => {
   router.post('/api/url', url);
   router.get('/:code',redirect);
-  router.get('/geturls',getAllUrls);
+  router.get('/api/geturls',getAllUrls);
   router.delete('/api/deleteurl/:id',deleteurl);
 };

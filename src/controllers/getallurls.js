@@ -12,4 +12,4 @@ export const getAllUrls = async (req, res) => {
     }
   };
 
-  export default getAllUrls;
+export default getAllUrls;
