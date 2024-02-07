@@ -4,19 +4,12 @@ import mongoose from 'mongoose';
 const UserSchema = new mongoose.Schema({
   email: { type: String, required: true },
   username: { type: String, required: true },
-  fname: { type: String },
-  lname: { type: String},
-  city: { type: String },
-  state: { type: String },
-  zip: { type: String },
-  address: { type: String },
-  phone: { type: String },
   password: { type: String, required: true, select: false },
   salt: { type: String, select: false },
   sessionToken: { type: String, select: false },
 });
 
- export const UserModel = mongoose.model('User', UserSchema);
+ export const UserModel = mongoose.model('Userassignment', UserSchema);
 
 // User Actions
  export const getUsers = () => UserModel.find();
