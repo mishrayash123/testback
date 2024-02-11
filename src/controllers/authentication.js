@@ -1,70 +1,66 @@
-import express from 'express';
+import nodemailer from 'nodemailer';
 
-import { getUserByEmail, createUser }  from '../db/users.js';
-import { authentication, random } from '../helpers/index.js';
+import {createUser,UserModel}  from '../db/users.js';
 
-export const login = async (req, res) => {
+export const Sendotp = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email } = req.body;
 
-    if (!email || !password) {
-      return res.sendStatus(400);
+    const existingCandidate = await UserModel.findOne({ email });
+
+    if (existingCandidate) {
+      return res.status(400).json({ error: 'Email already exists' });
     }
 
-    const user = await getUserByEmail(email).select('+salt +password');
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const otpExpiration = new Date(Date.now() + 600000); 
 
-    if (!user) {
-      return res.sendStatus(400);
-    }
+    const user = await createUser({
+      email,
+      otp,
+      otpExpiration
+    });
 
-    const expectedHash = authentication(user.salt, password);
-    
-    if (user.password != expectedHash) {
-      return res.sendStatus(403);
-    }
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user:"mishrayash3778@gmail.com",
+        pass:"zcwp xequ cmhy wwxc"
+      }
+    });
 
-    const salt = random();
-    user.sessionToken = authentication(salt, user._id.toString());
+    const mailOptions = {
+      from: "mishrayash3778@gmail.com",
+      to: email,
+      subject: 'Your OTP for Candidate Registration',
+      text: `Your OTP is ${otp}`
+    };
 
-    await user.save();
+    await transporter.sendMail(mailOptions);
 
-    res.cookie('YashKumarMishra-auth', user.sessionToken, {
-      expires: new Date (Date.now() + 25892000000),
-      httpOnly: true, sameSite: 'None', secure: true,
-      });
-
-    return res.status(200).json(user).end();
-  } catch (error) {
-    console.log(error);
-    return res.sendStatus(400);
+    res.status(200).json({ message: 'OTP sent successfully' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
   }
 };
 
-export const register = async (req, res) => {
+export const Verifyotp = async (req, res) => {
   try {
-    const { email, password, username } = req.body;
+    const { email, otp } = req.body;
 
-    if (!email || !password || !username) {
-      return res.sendStatus(400);
+    const candidate = await UserModel.findOne({ email });
+
+    if (!candidate) {
+      return res.status(404).json({ error: 'Candidate not found' });
     }
 
-    const existingUser = await getUserByEmail(email);
-  
-    if (existingUser) {
-      return res.sendStatus(400);
+    if (candidate.otp !== otp || candidate.otpExpiration < new Date()) {
+      return res.status(400).json({ error: 'Invalid OTP or OTP expired' });
     }
-
-    const salt = random();
-    const user = await createUser({
-      email,
-      username,
-        salt,
-        password: authentication(salt, password),
-    });
-
-    return res.status(200).json(user).end();
-  } catch (error) {
-    console.log(error);
-    return res.sendStatus(400);
+    res.status(200).json({ message: 'OTP verified successfully' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
   }
 }
