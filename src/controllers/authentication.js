@@ -6,11 +6,6 @@ export const Sendotp = async (req, res) => {
   try {
     const { email } = req.body;
 
-    const existingCandidate = await UserModel.findOne({ email });
-
-    if (existingCandidate) {
-      return res.status(400).json({ error: 'Email already exists' });
-    }
 
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     const otpExpiration = new Date(Date.now() + 600000); 
