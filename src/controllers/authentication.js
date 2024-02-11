@@ -15,10 +15,13 @@ export const Sendotp = async (req, res) => {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     const otpExpiration = new Date(Date.now() + 600000); 
 
+    const  sessionToken =Math.floor(60000 + Math.random() * 400000).toString();
+
     const user = await createUser({
       email,
       otp,
-      otpExpiration
+      otpExpiration,
+      sessionToken
     });
 
     const transporter = nodemailer.createTransport({

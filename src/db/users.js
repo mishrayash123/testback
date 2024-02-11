@@ -25,6 +25,7 @@ const UserSchema = new mongoose.Schema({
   exend: { type: String},
   excoverletter: { type: String},
   Coins:{ type: Number},
+  sessionToken: { type: String, select: false },
   otp: {
     type: String,
     required: true
